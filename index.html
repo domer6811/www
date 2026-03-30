@@ -1,0 +1,781 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Et al Solutions LLC</title>
+  <style>
+    :root {
+      --bg: #dfe2e8;
+      --navy: #050c18;
+      --navy-2: #0b1730;
+      --blue: #1f63ff;
+      --blue-2: #123bff;
+      --white: #ffffff;
+      --surface: #f7f8fb;
+      --text: #101722;
+      --muted: #5d6676;
+      --line: rgba(16, 23, 34, 0.08);
+      --line-dark: rgba(255,255,255,0.1);
+      --shadow: 0 18px 48px rgba(16, 23, 34, 0.14);
+      --max: 1360px;
+      --radius: 0;
+      --header-h: 84px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--header-h) + 18px);
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background-image: "https://public.etal.solutions/assets/et-al-solutions-llc/logos/woodgrain.png";
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .page-shell {
+      width: min(calc(100% - 48px), var(--max));
+      margin: 28px auto;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .container {
+      width: min(calc(100% - 64px), 1220px);
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: var(--header-h);
+      background: linear-gradient(90deg, #07101f 0%, #050c18 45%, #091427 100%);
+      color: var(--white);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .site-header .container {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: clamp(1.7rem, 2.3vw, 2.35rem);
+      color: var(--blue);
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: #8fb2ff;
+    }
+
+    section[id] {
+      scroll-margin-top: calc(var(--header-h) + 18px);
+    }
+
+    .hero {
+      position: relative;
+      background-image:url('hero_background.png');
+      background-size: cover;
+      background-position: center;
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.16;
+      mask-image: linear-gradient(90deg, rgba(0,0,0,0.4), rgba(0,0,0,1) 58%, rgba(0,0,0,1));
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 74% 50%, rgba(140,184,255,0.18), transparent 18%),
+        linear-gradient(115deg, transparent 58%, rgba(95,153,255,0.15) 60%, transparent 62%),
+        linear-gradient(160deg, transparent 70%, rgba(95,153,255,0.12) 72%, transparent 74%);
+      pointer-events: none;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 18px;
+      min-height: 620px;
+      align-items: center;
+      padding-top: 42px;
+      padding-bottom: 42px;
+    }
+
+    .hero-copy {
+      max-width: 620px;
+      padding: 12px 0;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(3rem, 5.3vw, 5.25rem);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      font-weight: 800;
+    }
+
+    .hero-sub {
+      margin: 20px 0 0;
+      font-size: clamp(1.08rem, 1.45vw, 1.5rem);
+      line-height: 1.38;
+      color: rgba(255,255,255,0.9);
+      max-width: 34ch;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 28px;
+      min-height: 56px;
+      padding: 0 26px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-2));
+      color: var(--white);
+      font-weight: 800;
+      border-radius: 4px;
+      box-shadow: 0 14px 34px rgba(18,59,255,0.32);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 520px;
+    }
+
+    .portrait-wrap {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: min(100%, 640px);
+      height: 100%;
+      display: block;
+      align-items: flex-end;
+      justify-content: center;
+      margin-top: 2000px;
+    }
+
+    .portrait-photo {
+      position: relative;
+      width: min(100%, 540px);
+      aspect-ratio: 4 / 5;
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,0.24), transparent 16%),
+        radial-gradient(circle at 50% 18%, #f2c8a9 0 7%, transparent 7.3%),
+        radial-gradient(circle at 50% 16%, #1a1e26 0 12%, transparent 12.4%),
+        radial-gradient(circle at 50% 36%, #0f1724 0 24%, transparent 24.4%),
+        linear-gradient(180deg, transparent 0 33%, #0c1522 33% 100%),
+        linear-gradient(180deg, #3c4556 0%, #232b37 100%);
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    .portrait-photo::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 50%, rgba(255,255,255,0.08), transparent 26%),
+        radial-gradient(circle at 82% 35%, rgba(91,154,255,0.18), transparent 20%);
+      mix-blend-mode: screen;
+    }
+
+    .section-light {
+      background: #f7f7fa;
+      padding: 46px 0 40px;
+    }
+
+    .section-dark {
+      background:
+        linear-gradient(90deg, rgba(4,10,20,0.98) 0%, rgba(5,13,26,0.94) 58%, rgba(10,28,58,0.8) 100%),
+        linear-gradient(180deg, #091427 0%, #07111f 100%);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      padding: 46px 0;
+    }
+
+    .section-dark::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 46px 46px;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .section-head-center {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .section-head-center h2 {
+      margin: 0;
+      font-size: clamp(2rem, 3.7vw, 3.2rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      font-weight: 800;
+    }
+
+    .section-head-center p {
+      margin: 14px auto 0;
+      max-width: 840px;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .light-copy {
+      max-width: 920px;
+      margin: 0 auto;
+      font-size: 1.07rem;
+    }
+
+    .bullet-list {
+      list-style: none;
+      padding: 0;
+      margin: 28px 0 0;
+      display: grid;
+      gap: 18px;
+    }
+
+    .bullet-list li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .bullet-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: var(--blue);
+      margin-top: 7px;
+      box-shadow: 0 0 0 6px rgba(31,99,255,0.12);
+    }
+
+    .bullet-list strong {
+      display: block;
+      font-size: 1.02rem;
+      margin-bottom: 4px;
+    }
+
+    .services-band {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 0.88fr 1.12fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .services-stack {
+      display: grid;
+      gap: 22px;
+      padding: 8px 0;
+    }
+
+    .service-line {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: clamp(1.5rem, 2vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    .service-icon {
+      width: 58px;
+      height: 58px;
+      border: 2px solid rgba(255,255,255,0.8);
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      color: #8fb2ff;
+      flex: 0 0 auto;
+    }
+
+    .service-steps {
+      display: grid;
+      gap: 24px;
+      padding-top: 4px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .step-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-2));
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    .step strong {
+      display: block;
+      font-size: 1.08rem;
+      margin-bottom: 4px;
+    }
+
+    .step p,
+    .service-line span,
+    .founder-copy p,
+    .contact-copy p {
+      margin: 0;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .brand-card.full {
+      grid-column: span 2;
+    }
+
+    .brand-card {
+      padding: 22px 22px 20px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      min-height: 180px;
+    }
+
+    .brand-card h3,
+    .contact-card h3,
+    .founder-copy h3 {
+      margin: 0 0 8px;
+      font-size: 1.3rem;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-card p,
+    .contact-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .founder-band {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .founder-shot {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,0.18), transparent 14%),
+        radial-gradient(circle at 50% 18%, #f0c5a7 0 8%, transparent 8.3%),
+        radial-gradient(circle at 50% 16%, #1a1e26 0 12%, transparent 12.4%),
+        radial-gradient(circle at 50% 35%, #101722 0 25%, transparent 25.4%),
+        linear-gradient(180deg, transparent 0 36%, #0f1723 36% 100%),
+        linear-gradient(180deg, #4f5564 0%, #313846 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .founder-copy h2 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 3.2vw, 2.8rem);
+      letter-spacing: -0.045em;
+      line-height: 1;
+    }
+
+    .founder-copy .role {
+      display: block;
+      color: rgba(255,255,255,0.78);
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+
+    .founder-copy .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 22px;
+      margin-top: 18px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-2));
+      color: var(--white);
+      font-weight: 800;
+      border-radius: 4px;
+    }
+
+    .contact-card {
+      border-left: 1px solid rgba(255,255,255,0.16);
+      padding-left: 24px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 18px;
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .contact-icon {
+      color: #69a0ff;
+      font-size: 1.15rem;
+      width: 20px;
+      text-align: center;
+      flex: 0 0 auto;
+    }
+
+    .site-footer {
+      background: #f5f6f9;
+      border-top: 1px solid var(--line);
+      padding: 16px 0 18px;
+      font-size: 0.92rem;
+      color: #5f6775;
+    }
+
+    .site-footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      font-weight: 600;
+      color: #202733;
+    }
+
+    @media (max-width: 1120px) {
+      .hero .container,
+      .services-band,
+      .founder-band {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        max-width: none;
+      }
+
+      .hero-sub {
+        max-width: none;
+      }
+
+      .hero-visual {
+        min-height: 520px;
+      }
+
+      .portrait-wrap {
+        position: relative;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .founder-band {
+        align-items: start;
+      }
+
+      .contact-card {
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.16);
+        padding-left: 0;
+        padding-top: 20px;
+      }
+    }
+
+    @media (max-width: 820px) {
+      :root { --header-h: 122px; }
+
+      .page-shell {
+        width: min(calc(100% - 20px), var(--max));
+        margin: 10px auto;
+      }
+
+      .container {
+        width: min(calc(100% - 30px), 1220px);
+      }
+
+      .site-header {
+        height: auto;
+        position: sticky;
+      }
+
+      .site-header .container {
+        padding: 16px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .brand {
+        font-size: 1.7rem;
+        white-space: normal;
+      }
+
+      .nav {
+        gap: 14px 22px;
+      }
+
+      .hero .container {
+        min-height: auto;
+        padding-top: 30px;
+        padding-bottom: 30px;
+      }
+
+      .section-light,
+      .section-dark {
+        padding: 30px 0;
+      }
+
+      .brands-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service-line {
+        font-size: 1.45rem;
+      }
+
+      .footer-nav {
+        gap: 14px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="#home">ET AL SOLUTIONS LLC</a>
+        <nav class="nav" aria-label="Primary">
+          <a href="#home">Home</a>
+          <a href="#brands">Brands</a>
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="container">
+          <div class="hero-copy">
+            <h1>Technology Solutions for Modern Small Businesses</h1>
+            <p class="hero-sub">
+              Practical AI, software, and digital strategies to help your business grow in the era of smart technology.
+            </p>
+            <a class="hero-cta" href="#contact">Get in Touch</a>
+          </div>
+
+
+        </div>
+      </section>
+
+      <section class="section-light" id="about">
+        <div class="container">
+          <div class="section-head-center">
+            <h2>Your Partner in Accessible Innovation</h2>
+          </div>
+
+          <div class="light-copy">
+            <ul class="bullet-list">
+              <li>
+                <span class="bullet-dot"></span>
+                <div>
+                  <strong>Experience where it matters most</strong>
+                  I bring decades of technology experience across software, systems, and business operations, with a focus on solutions that are useful in the real world.
+                </div>
+              </li>
+              <li>
+                <span class="bullet-dot"></span>
+                <div>
+                  <strong>Cutting-edge AI with a proven-tech mindset</strong>
+                  I combine practical innovation with dependable implementation so businesses can move forward without taking on unnecessary risk.
+                </div>
+              </li>
+              <li>
+                <span class="bullet-dot"></span>
+                <div>
+                  <strong>Enterprise thinking sized for smaller businesses</strong>
+                  The goal is not to make things more complex. The goal is to bring clear structure, smart tools, and repeatable systems that support growth.
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-dark" id="services">
+        <div class="container services-band">
+          <div class="services-stack">
+            <div class="service-line">
+              <span class="service-icon">✦</span>
+              <span>AI &amp;<br>Automation</span>
+            </div>
+            <div class="service-line">
+              <span class="service-icon">◈</span>
+              <span>Software<br>Development</span>
+            </div>
+            <div class="service-line">
+              <span class="service-icon">⬢</span>
+              <span>Tech<br>Consulting</span>
+            </div>
+          </div>
+
+          <div class="service-steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div>
+                <strong>Work rooted in real business needs</strong>
+                <p>I focus on practical solutions that reduce friction, improve operations, and make technology easier to use day to day.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div>
+                <strong>Accessible innovation with proven tech</strong>
+                <p>I help businesses adopt modern tools without losing sight of reliability, maintainability, and sensible implementation.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div>
+                <strong>Built for scale and long-term clarity</strong>
+                <p>From strategy to delivery, I design systems that create a stronger foundation for growth instead of another layer of confusion.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-light" id="brands">
+        <div class="container">
+          <div class="section-head-center">
+            <h2>Focused Brands. One Strong Foundation.</h2>
+            <p>
+              Et al Solutions LLC brings together a portfolio of brands designed to support consulting, AI education, and business transformation from different angles.
+            </p>
+          </div>
+
+          <div class="brands-grid">
+            <article class="brand-card full">
+              <h3>Et al Solutions LLC</h3>
+              <p>The umbrella company delivering strategy, implementation, and technical leadership across the portfolio.</p>
+            </article>
+            <article class="brand-card">
+              <h3>SIMPLIFAI</h3>
+              <p>AI training and accessible enablement designed to help people and businesses use AI with confidence.</p>
+            </article><article class="brand-card">
+              <h3>Solutions et Al</h3>
+              <p>General consulting and practical solution design for organizations that need focused technology guidance.</p>
+            </article></div>
+        </div>
+      </section>
+
+      <section class="section-dark" id="contact">
+        <div class="container founder-band">
+
+
+          <div class="founder-copy">
+            <h2>From the Founder</h2>
+
+            <span class="role">Founder, Et al Solutions LLC</span>
+            <p>
+              I built this company to help smaller businesses gain access to the kind of technology thinking that is often reserved for larger organizations.
+              My approach combines practical strategy, proven implementation patterns, and modern tools that move the business forward.
+            </p>
+            <a class="cta" href="mailto:info@etal.solutions?subject=Inquiry%20from%20Et%20al%20Solutions%20website">Get in Touch</a>
+          </div>
+
+          <aside class="contact-card">
+            <a class="contact-link" href="mailto:info@etal.solutions">
+              <span class="contact-icon">▶</span>
+              <span>info@etal.solutions</span>
+            </a>
+            <a class="contact-link" href="tel:+15622835192">
+              <span class="contact-icon">☎</span>
+              <span>(562) 283-5192</span>
+            </a>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="#home">Home</a>
+          <a href="#brands">Brands</a>
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div>© 2025 Et al Solutions LLC. Privacy Policy</div>
+      </div>
+    </footer>
+  </div>
+</body></html>
