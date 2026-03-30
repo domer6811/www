@@ -1,6 +1,8 @@
-<html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Et al Solutions LLC</title>
   <style>
     :root {
@@ -31,7 +33,7 @@
     body {
       margin: 0;
       font-family: Inter, Arial, Helvetica, sans-serif;
-      background-image: "https://public.etal.solutions/assets/et-al-solutions-llc/logos/woodgrain.png";
+      background: var(--bg);
       color: var(--text);
       line-height: 1.45;
     }
@@ -102,11 +104,15 @@
 
     .hero {
       position: relative;
-      background-image:url('https://public.etal.solutions/assets/et-al-solutions-llc/images/marketingsite_hero_background.png');
-      background-size: cover;
-      background-position: center;
       color: var(--white);
       overflow: hidden;
+      background:
+        radial-gradient(circle at 82% 22%, rgba(31,99,255,0.28), transparent 0 18%),
+        radial-gradient(circle at 72% 58%, rgba(143,178,255,0.18), transparent 0 20%),
+        linear-gradient(115deg, transparent 58%, rgba(95,153,255,0.10) 60%, transparent 62%),
+        linear-gradient(160deg, transparent 70%, rgba(95,153,255,0.08) 72%, transparent 74%),
+        linear-gradient(90deg, rgba(3,8,22,0.95) 0%, rgba(4,10,28,0.86) 42%, rgba(6,18,48,0.70) 100%);
+      background-color: #07111f;
     }
 
     .hero::before {
@@ -114,11 +120,11 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
       background-size: 42px 42px;
-      opacity: 0.16;
-      mask-image: linear-gradient(90deg, rgba(0,0,0,0.4), rgba(0,0,0,1) 58%, rgba(0,0,0,1));
+      opacity: 0.14;
+      mask-image: linear-gradient(90deg, rgba(0,0,0,0.96), rgba(0,0,0,0.78) 58%, rgba(0,0,0,0.18));
       pointer-events: none;
     }
 
@@ -127,9 +133,9 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 74% 50%, rgba(140,184,255,0.18), transparent 18%),
-        linear-gradient(115deg, transparent 58%, rgba(95,153,255,0.15) 60%, transparent 62%),
-        linear-gradient(160deg, transparent 70%, rgba(95,153,255,0.12) 72%, transparent 74%);
+        radial-gradient(circle at 78% 50%, rgba(255,255,255,0.04), transparent 0 14%),
+        radial-gradient(circle at 84% 34%, rgba(18,59,255,0.20), transparent 0 12%),
+        radial-gradient(circle at 66% 72%, rgba(18,59,255,0.10), transparent 0 14%);
       pointer-events: none;
     }
 
@@ -137,7 +143,7 @@
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: minmax(0, 720px);
       gap: 18px;
       min-height: 620px;
       align-items: center;
@@ -150,12 +156,24 @@
       padding: 12px 0;
     }
 
+    .hero-kicker {
+      display: inline-block;
+      margin: 0 0 18px;
+      font-size: 0.9rem;
+      line-height: 1;
+      letter-spacing: 0.12em;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+    }
+
     .hero h1 {
       margin: 0;
       font-size: clamp(3rem, 5.3vw, 5.25rem);
       line-height: 0.95;
       letter-spacing: -0.055em;
       font-weight: 800;
+      text-wrap: balance;
     }
 
     .hero-sub {
@@ -166,11 +184,17 @@
       max-width: 34ch;
     }
 
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
     .hero-cta {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-top: 28px;
       min-height: 56px;
       padding: 0 26px;
       background: linear-gradient(135deg, var(--blue), var(--blue-2));
@@ -180,47 +204,44 @@
       box-shadow: 0 14px 34px rgba(18,59,255,0.32);
     }
 
-    .hero-visual {
-      position: relative;
-      min-height: 520px;
-    }
-
-    .portrait-wrap {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      width: min(100%, 640px);
-      height: 100%;
-      display: block;
-      align-items: flex-end;
-      justify-content: center;
-      margin-top: 2000px;
-    }
-
-    .portrait-photo {
-      position: relative;
-      width: min(100%, 540px);
-      aspect-ratio: 4 / 5;
-      border-radius: 12px;
-      background:
-        radial-gradient(circle at 50% 20%, rgba(255,255,255,0.24), transparent 16%),
-        radial-gradient(circle at 50% 18%, #f2c8a9 0 7%, transparent 7.3%),
-        radial-gradient(circle at 50% 16%, #1a1e26 0 12%, transparent 12.4%),
-        radial-gradient(circle at 50% 36%, #0f1724 0 24%, transparent 24.4%),
-        linear-gradient(180deg, transparent 0 33%, #0c1522 33% 100%),
-        linear-gradient(180deg, #3c4556 0%, #232b37 100%);
+    .hero-cta.secondary {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.16);
       box-shadow: none;
-      overflow: hidden;
+      backdrop-filter: blur(4px);
     }
 
-    .portrait-photo::before {
+    .hero-cta:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero-trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-trust li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 0.98rem;
+      line-height: 1.4;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .hero-trust li::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 18% 50%, rgba(255,255,255,0.08), transparent 26%),
-        radial-gradient(circle at 82% 35%, rgba(91,154,255,0.18), transparent 20%);
-      mix-blend-mode: screen;
+      left: 0;
+      top: 0.52em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 14px rgba(18,59,255,0.65);
     }
 
     .section-light {
@@ -421,21 +442,7 @@
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: 28px;
-      align-items: center;
-    }
-
-    .founder-shot {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      border-radius: 8px;
-      background:
-        radial-gradient(circle at 50% 20%, rgba(255,255,255,0.18), transparent 14%),
-        radial-gradient(circle at 50% 18%, #f0c5a7 0 8%, transparent 8.3%),
-        radial-gradient(circle at 50% 16%, #1a1e26 0 12%, transparent 12.4%),
-        radial-gradient(circle at 50% 35%, #101722 0 25%, transparent 25.4%),
-        linear-gradient(180deg, transparent 0 36%, #0f1723 36% 100%),
-        linear-gradient(180deg, #4f5564 0%, #313846 100%);
-      border: 1px solid rgba(255,255,255,0.1);
+      align-items: start;
     }
 
     .founder-copy h2 {
@@ -512,28 +519,18 @@
     }
 
     @media (max-width: 1120px) {
-      .hero .container,
       .services-band,
       .founder-band {
         grid-template-columns: 1fr;
       }
 
-      .hero-copy {
-        max-width: none;
+      .hero .container {
+        grid-template-columns: 1fr;
       }
 
+      .hero-copy,
       .hero-sub {
         max-width: none;
-      }
-
-      .hero-visual {
-        min-height: 520px;
-      }
-
-      .portrait-wrap {
-        position: relative;
-        width: 100%;
-        justify-content: center;
       }
 
       .founder-band {
@@ -595,12 +592,34 @@
         grid-template-columns: 1fr;
       }
 
+      .brand-card.full {
+        grid-column: auto;
+      }
+
       .service-line {
         font-size: 1.45rem;
       }
 
       .footer-nav {
         gap: 14px 18px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        background:
+          radial-gradient(circle at 78% 18%, rgba(31,99,255,0.18), transparent 0 18%),
+          radial-gradient(circle at 68% 58%, rgba(143,178,255,0.10), transparent 0 20%),
+          linear-gradient(180deg, rgba(3,8,22,0.96) 0%, rgba(4,10,28,0.88) 52%, rgba(6,18,48,0.82) 100%);
+      }
+
+      .hero-actions {
+        gap: 12px;
+      }
+
+      .hero-cta,
+      .hero-cta.secondary {
+        width: 100%;
       }
     }
   </style>
@@ -624,14 +643,23 @@
       <section class="hero" id="home">
         <div class="container">
           <div class="hero-copy">
+            <p class="hero-kicker">Et al Solutions LLC</p>
             <h1>Technology Solutions for Modern Small Businesses</h1>
             <p class="hero-sub">
               Practical AI, software, and digital strategies to help your business grow in the era of smart technology.
             </p>
-            <a class="hero-cta" href="#contact">Get in Touch</a>
+
+            <div class="hero-actions">
+              <a class="hero-cta" href="#contact">Get in Touch</a>
+              <a class="hero-cta secondary" href="#services">Explore Services</a>
+            </div>
+
+            <ul class="hero-trust">
+              <li>Practical AI</li>
+              <li>Custom software</li>
+              <li>Clear, business-friendly guidance</li>
+            </ul>
           </div>
-
-
         </div>
       </section>
 
@@ -726,23 +754,24 @@
               <h3>Et al Solutions LLC</h3>
               <p>The umbrella company delivering strategy, implementation, and technical leadership across the portfolio.</p>
             </article>
+
             <article class="brand-card">
               <h3>SIMPLIFAI</h3>
               <p>AI training and accessible enablement designed to help people and businesses use AI with confidence.</p>
-            </article><article class="brand-card">
+            </article>
+
+            <article class="brand-card">
               <h3>Solutions et Al</h3>
               <p>General consulting and practical solution design for organizations that need focused technology guidance.</p>
-            </article></div>
+            </article>
+          </div>
         </div>
       </section>
 
       <section class="section-dark" id="contact">
         <div class="container founder-band">
-
-
           <div class="founder-copy">
             <h2>From the Founder</h2>
-
             <span class="role">Founder, Et al Solutions LLC</span>
             <p>
               I built this company to help smaller businesses gain access to the kind of technology thinking that is often reserved for larger organizations.
@@ -778,4 +807,5 @@
       </div>
     </footer>
   </div>
-</body></html>
+</body>
+</html>
