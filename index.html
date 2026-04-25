@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -21,13 +22,16 @@
       --max: 1360px;
       --radius: 0;
       --header-h: 84px;
+      --shell-w: 100%;
+      --inner-gutter: clamp(48px, 6vw, 96px);
+      --inner-max: 1180px;
     }
 
     * { box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: calc(var(--header-h) + 18px);
+      scroll-padding-top: 0;
     }
 
     body {
@@ -42,26 +46,31 @@
     img { max-width: 100%; display: block; }
 
     .page-shell {
-      width: min(calc(100% - 48px), var(--max));
-      margin: 28px auto;
+      width: var(--shell-w);
+      margin: 0;
+      padding-top: var(--header-h);
       background: var(--white);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      box-shadow: none;
+      overflow: clip;
     }
 
     .container {
-      width: min(calc(100% - 64px), 1220px);
+      width: min(calc(100% - (var(--inner-gutter) * 2)), var(--inner-max));
       margin: 0 auto;
     }
 
     .site-header {
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 50;
+      left: 0;
+      transform: none;
+      z-index: 1000;
+      width: 100%;
       height: var(--header-h);
       background: linear-gradient(90deg, #07101f 0%, #050c18 45%, #091427 100%);
       color: var(--white);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 12px 30px rgba(5, 12, 24, 0.18);
     }
 
     .site-header .container {
@@ -83,6 +92,7 @@
     .nav {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 34px;
       flex-wrap: wrap;
     }
@@ -99,7 +109,26 @@
     }
 
     section[id] {
-      scroll-margin-top: calc(var(--header-h) + 18px);
+      scroll-margin-top: var(--header-h);
+    }
+
+    .panel {
+      display: flex;
+      align-items: center;
+      padding: clamp(42px, 6vh, 76px) 0;
+      transition: min-height 220ms ease, padding 220ms ease;
+    }
+
+    .panel:target,
+    body:not(:has(section:target)) #home {
+      min-height: calc(100svh - var(--header-h));
+      padding-top: clamp(48px, 7vh, 86px);
+      padding-bottom: clamp(48px, 7vh, 86px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .panel { transition: none; }
     }
 
     .hero {
@@ -145,10 +174,6 @@
       display: grid;
       grid-template-columns: minmax(0, 720px);
       gap: 18px;
-      min-height: 620px;
-      align-items: center;
-      padding-top: 42px;
-      padding-bottom: 42px;
     }
 
     .hero-copy {
@@ -156,7 +181,8 @@
       padding: 12px 0;
     }
 
-    .hero-kicker {
+    .hero-kicker,
+    .section-kicker {
       display: inline-block;
       margin: 0 0 18px;
       font-size: 0.9rem;
@@ -165,6 +191,10 @@
       font-weight: 800;
       text-transform: uppercase;
       color: rgba(255,255,255,0.78);
+    }
+
+    .section-kicker.light {
+      color: var(--blue);
     }
 
     .hero h1 {
@@ -211,7 +241,8 @@
       backdrop-filter: blur(4px);
     }
 
-    .hero-cta:hover {
+    .hero-cta:hover,
+    .founder-copy .cta:hover {
       transform: translateY(-1px);
     }
 
@@ -246,7 +277,6 @@
 
     .section-light {
       background: #f7f7fa;
-      padding: 46px 0 40px;
     }
 
     .section-dark {
@@ -256,7 +286,6 @@
       color: var(--white);
       position: relative;
       overflow: hidden;
-      padding: 46px 0;
     }
 
     .section-dark::before {
@@ -271,17 +300,26 @@
       pointer-events: none;
     }
 
-    .section-head-center {
-      text-align: center;
-      margin-bottom: 28px;
+    .section-dark > .container,
+    .section-dark .container {
+      position: relative;
+      z-index: 1;
     }
 
-    .section-head-center h2 {
+    .section-head-center {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .section-head-center h2,
+    .section-copy h2,
+    .founder-copy h2 {
       margin: 0;
       font-size: clamp(2rem, 3.7vw, 3.2rem);
       line-height: 1;
       letter-spacing: -0.045em;
       font-weight: 800;
+      text-wrap: balance;
     }
 
     .section-head-center p {
@@ -291,54 +329,66 @@
       color: var(--muted);
     }
 
-    .light-copy {
-      max-width: 920px;
-      margin: 0 auto;
-      font-size: 1.07rem;
+    .section-copy {
+      max-width: 900px;
     }
 
-    .bullet-list {
-      list-style: none;
-      padding: 0;
-      margin: 28px 0 0;
+    .section-copy p {
+      margin: 18px 0 0;
+      font-size: clamp(1.05rem, 1.25vw, 1.25rem);
+      color: var(--muted);
+      max-width: 66ch;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+      gap: clamp(36px, 6vw, 86px);
+      align-items: center;
+    }
+
+    .about-cards {
       display: grid;
       gap: 18px;
     }
 
-    .bullet-list li {
-      display: grid;
-      grid-template-columns: 28px 1fr;
-      gap: 14px;
-      align-items: start;
+    .about-card {
+      padding: 24px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 34px rgba(16, 23, 34, 0.06);
     }
 
-    .bullet-dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      background: var(--blue);
-      margin-top: 7px;
-      box-shadow: 0 0 0 6px rgba(31,99,255,0.12);
-    }
-
-    .bullet-list strong {
+    .about-card strong,
+    .brand-card h3,
+    .contact-card h3,
+    .founder-copy h3 {
       display: block;
-      font-size: 1.02rem;
-      margin-bottom: 4px;
+      margin: 0 0 8px;
+      font-size: 1.18rem;
+      letter-spacing: -0.03em;
+    }
+
+    .about-card p,
+    .brand-card p,
+    .contact-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
     }
 
     .services-band {
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 0.88fr 1.12fr;
-      gap: 36px;
-      align-items: start;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: clamp(36px, 6vw, 86px);
+      align-items: center;
     }
 
     .services-stack {
       display: grid;
-      gap: 22px;
+      gap: 26px;
       padding: 8px 0;
     }
 
@@ -346,15 +396,15 @@
       display: flex;
       align-items: center;
       gap: 18px;
-      font-size: clamp(1.5rem, 2vw, 2.2rem);
+      font-size: clamp(1.6rem, 2.3vw, 2.5rem);
       font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
     }
 
     .service-icon {
-      width: 58px;
-      height: 58px;
+      width: 62px;
+      height: 62px;
       border: 2px solid rgba(255,255,255,0.8);
       border-radius: 999px;
       display: grid;
@@ -366,15 +416,17 @@
 
     .service-steps {
       display: grid;
-      gap: 24px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
       padding-top: 4px;
     }
 
     .step {
-      display: grid;
-      grid-template-columns: 42px 1fr;
-      gap: 14px;
-      align-items: start;
+      min-height: 208px;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.045);
+      backdrop-filter: blur(4px);
     }
 
     .step-num {
@@ -386,13 +438,13 @@
       display: grid;
       place-items: center;
       font-weight: 800;
-      margin-top: 2px;
+      margin-bottom: 18px;
     }
 
     .step strong {
       display: block;
       font-size: 1.08rem;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
     .step p,
@@ -401,6 +453,10 @@
     .contact-copy p {
       margin: 0;
       color: rgba(255,255,255,0.88);
+    }
+
+    .step p {
+      font-size: 0.98rem;
     }
 
     .brands-grid {
@@ -415,48 +471,57 @@
     }
 
     .brand-card {
-      padding: 22px 22px 20px;
+      padding: 24px;
       background: #ffffff;
       border: 1px solid var(--line);
-      min-height: 180px;
-    }
-
-    .brand-card h3,
-    .contact-card h3,
-    .founder-copy h3 {
-      margin: 0 0 8px;
-      font-size: 1.3rem;
-      letter-spacing: -0.03em;
-    }
-
-    .brand-card p,
-    .contact-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 1rem;
+      min-height: 168px;
     }
 
     .founder-band {
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 28px;
-      align-items: start;
+      grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.6fr);
+      gap: clamp(36px, 6vw, 86px);
+      align-items: center;
+    }
+
+    .founder-copy {
+      max-width: 880px;
     }
 
     .founder-copy h2 {
-      margin: 0 0 14px;
-      font-size: clamp(2rem, 3.2vw, 2.8rem);
-      letter-spacing: -0.045em;
-      line-height: 1;
+      margin-bottom: 14px;
     }
 
     .founder-copy .role {
       display: block;
       color: rgba(255,255,255,0.78);
       font-size: 1rem;
-      margin-bottom: 16px;
+      margin-bottom: 22px;
+    }
+
+    .founder-copy p + p {
+      margin-top: 16px;
+    }
+
+    .founder-principles {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+      max-width: 820px;
+    }
+
+    .founder-principles span {
+      display: block;
+      min-height: 86px;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.045);
+      color: rgba(255,255,255,0.88);
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
     .founder-copy .cta {
@@ -465,7 +530,7 @@
       justify-content: center;
       min-height: 50px;
       padding: 0 22px;
-      margin-top: 18px;
+      margin-top: 30px;
       background: linear-gradient(135deg, var(--blue), var(--blue-2));
       color: var(--white);
       font-weight: 800;
@@ -474,7 +539,12 @@
 
     .contact-card {
       border-left: 1px solid rgba(255,255,255,0.16);
-      padding-left: 24px;
+      padding-left: 28px;
+    }
+
+    .contact-card p {
+      color: rgba(255,255,255,0.74);
+      margin-bottom: 28px;
     }
 
     .contact-link {
@@ -519,43 +589,51 @@
     }
 
     @media (max-width: 1120px) {
+      .about-layout,
       .services-band,
       .founder-band {
         grid-template-columns: 1fr;
       }
 
       .hero-copy,
-      .hero-sub {
+      .hero-sub,
+      .section-copy,
+      .founder-copy {
         max-width: none;
-      }
-
-      .founder-band {
-        align-items: start;
       }
 
       .contact-card {
         border-left: none;
         border-top: 1px solid rgba(255,255,255,0.16);
         padding-left: 0;
-        padding-top: 20px;
+        padding-top: 28px;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .service-steps,
+      .founder-principles {
+        grid-template-columns: 1fr;
+      }
+
+      .step {
+        min-height: auto;
       }
     }
 
     @media (max-width: 820px) {
-      :root { --header-h: 122px; }
-
-      .page-shell {
-        width: min(calc(100% - 20px), var(--max));
-        margin: 10px auto;
+      :root {
+        --header-h: 132px;
+        --shell-w: min(calc(100% - 20px), var(--max));
+        --inner-gutter: 24px;
       }
 
-      .container {
-        width: min(calc(100% - 30px), 1220px);
+      .page-shell {
+        margin-bottom: 10px;
       }
 
       .site-header {
-        height: auto;
-        position: sticky;
+        height: var(--header-h);
       }
 
       .site-header .container {
@@ -571,17 +649,18 @@
 
       .nav {
         gap: 14px 22px;
+        justify-content: flex-start;
       }
 
-      .hero .container {
-        min-height: auto;
-        padding-top: 30px;
-        padding-bottom: 30px;
+      .panel {
+        padding: 38px 0;
       }
 
-      .section-light,
-      .section-dark {
-        padding: 30px 0;
+      .panel:target,
+      body:not(:has(section:target)) #home {
+        min-height: calc(100svh - var(--header-h));
+        padding-top: 42px;
+        padding-bottom: 42px;
       }
 
       .brands-grid {
@@ -602,6 +681,7 @@
     }
 
     @media (max-width: 640px) {
+      :root { --inner-gutter: 18px; }
       .hero {
         background:
           radial-gradient(circle at 78% 18%, rgba(31,99,255,0.18), transparent 0 18%),
@@ -616,6 +696,17 @@
       .hero-cta,
       .hero-cta.secondary {
         width: 100%;
+      }
+
+      .service-icon {
+        width: 54px;
+        height: 54px;
+      }
+
+      .about-card,
+      .brand-card,
+      .step {
+        padding: 20px;
       }
     }
   </style>
@@ -636,7 +727,7 @@
     </header>
 
     <main>
-      <section class="hero" id="home">
+      <section class="hero panel" id="home">
         <div class="container">
           <div class="hero-copy">
             <p class="hero-kicker">Et al Solutions LLC</p>
@@ -659,43 +750,40 @@
         </div>
       </section>
 
-      <section class="section-light" id="about">
-        <div class="container">
-          <div class="section-head-center">
-            <h2>Your Partner in Accessible Innovation</h2>
+      <section class="section-light panel" id="about">
+        <div class="container about-layout">
+          <div class="section-copy">
+            <span class="section-kicker light">Accessible Innovation</span>
+            <h2>Your Partner in Practical Technology</h2>
+            <p>
+              Et al Solutions LLC helps smaller organizations use technology with the same clarity and discipline larger companies rely on, without adding unnecessary complexity.
+            </p>
+            <p>
+              The work is intentionally straightforward: understand the business problem, choose the smallest reliable solution, and build a foundation that can grow when the business is ready.
+            </p>
           </div>
 
-          <div class="light-copy">
-            <ul class="bullet-list">
-              <li>
-                <span class="bullet-dot"></span>
-                <div>
-                  <strong>Experience where it matters most</strong>
-                  We bring decades of technology experience across software, systems, and business operations, with a focus on solutions that are useful in the real world.
-                </div>
-              </li>
-              <li>
-                <span class="bullet-dot"></span>
-                <div>
-                  <strong>Cutting-edge AI with a proven-tech mindset</strong>
-                  We combine practical innovation with dependable implementation so businesses can move forward without taking on unnecessary risk.
-                </div>
-              </li>
-              <li>
-                <span class="bullet-dot"></span>
-                <div>
-                  <strong>Enterprise thinking sized for smaller businesses</strong>
-                  The goal is not to make things more complex. The goal is to bring clear structure, smart tools, and repeatable systems that support growth.
-                </div>
-              </li>
-            </ul>
+          <div class="about-cards">
+            <article class="about-card">
+              <strong>Experience where it matters most</strong>
+              <p>Decades of technology experience across software, systems, and business operations, focused on solutions that are useful in the real world.</p>
+            </article>
+            <article class="about-card">
+              <strong>Cutting-edge AI with a proven-tech mindset</strong>
+              <p>Modern tools are paired with dependable implementation so businesses can move forward without taking on unnecessary risk.</p>
+            </article>
+            <article class="about-card">
+              <strong>Enterprise thinking sized for smaller businesses</strong>
+              <p>The goal is not to make things more complex. The goal is clear structure, smart tools, and repeatable systems that support growth.</p>
+            </article>
           </div>
         </div>
       </section>
 
-      <section class="section-dark" id="services">
+      <section class="section-dark panel" id="services">
         <div class="container services-band">
           <div class="services-stack">
+            <span class="section-kicker">Services</span>
             <div class="service-line">
               <span class="service-icon">✦</span>
               <span>AI &amp;<br>Automation</span>
@@ -715,28 +803,35 @@
               <div class="step-num">1</div>
               <div>
                 <strong>Work rooted in real business needs</strong>
-                <p>We focus on practical solutions that reduce friction, improve operations, and make technology easier to use day to day.</p>
+                <p>Practical solutions that reduce friction, improve operations, and make technology easier to use day to day.</p>
               </div>
             </div>
             <div class="step">
               <div class="step-num">2</div>
               <div>
-                <strong>Accessible innovation with proven tech</strong>
-                <p>We help businesses adopt modern tools without losing sight of reliability, maintainability, and sensible implementation.</p>
+                <strong>AI that supports the work</strong>
+                <p>Automation, prompt systems, internal tools, and workflows that help teams move faster without losing judgment or control.</p>
               </div>
             </div>
             <div class="step">
               <div class="step-num">3</div>
               <div>
+                <strong>Software that fits the business</strong>
+                <p>Lightweight web applications, integrations, dashboards, and custom systems designed around the way the organization actually operates.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div>
                 <strong>Built for scale and long-term clarity</strong>
-                <p>From strategy to delivery, we design systems that create a stronger foundation for growth instead of another layer of confusion.</p>
+                <p>From strategy to delivery, systems are designed to create a stronger foundation for growth instead of another layer of confusion.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section-light" id="brands">
+      <section class="section-light panel" id="brands">
         <div class="container">
           <div class="section-head-center">
             <h2>Focused Brands. One Strong Foundation.</h2>
@@ -774,19 +869,32 @@
         </div>
       </section>
 
-      <section class="section-dark" id="contact">
+      <section class="section-dark panel" id="contact">
         <div class="container founder-band">
           <div class="founder-copy">
-            <h2>From the Founder</h2>
+            <span class="section-kicker">From the Founder</span>
+            <h2>Built for Clear Thinking, Practical Delivery, and Real-World Use</h2>
             <span class="role">Founder, Et al Solutions LLC</span>
             <p>
               I built this company to help smaller businesses gain access to the kind of technology thinking that is often reserved for larger organizations.
               My approach combines practical strategy, proven implementation patterns, and modern tools that move the business forward.
             </p>
+            <p>
+              The best technology should feel clarifying. It should reduce uncertainty, make daily work easier, and leave the business with something maintainable after the first launch.
+            </p>
+
+            <div class="founder-principles" aria-label="Founder principles">
+              <span>Useful before impressive</span>
+              <span>Simple before complicated</span>
+              <span>Durable before trendy</span>
+            </div>
+
             <a class="cta" href="mailto:info@etalsolutions.tech?subject=Inquiry%20from%20Et%20al%20Solutions%20website">Get in Touch</a>
           </div>
 
           <aside class="contact-card">
+            <h3>Start a Conversation</h3>
+            <p>Share the problem, the goal, or the thing that keeps getting harder than it should be.</p>
             <a class="contact-link" href="mailto:info@etalsolutions.tech">
               <span class="contact-icon">▶</span>
               <span>info@etalsolutions.tech</span>
